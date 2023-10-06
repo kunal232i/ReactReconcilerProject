@@ -4,61 +4,70 @@ interface TodoItem {
   description: string;
 }
 
+const tasks: TodoItem[] = [];
+
 // Creates and displays DOM elements for tasks.
-function createTaskElements(taskData: TodoItem[]): void {
+const createTaskElements = (taskData: TodoItem[]): void => {
   const taskContainer = document.getElementById("stage1");
 
-  if (taskContainer) {
-    taskContainer.innerHTML = "";
-  } else {
+  if (!taskContainer) {
     console.error("Task container not found.");
     return;
   }
 
+  taskContainer.innerHTML = ""; // Clear existing tasks.
+
   let tasksAdded = 0;
 
-  taskData.forEach(function (task) {
+  taskData.forEach((item) => {
     tasksAdded++;
 
     const taskElement = document.createElement("div");
-    taskElement.dataset.id = task.id.toString();
+    taskElement.dataset.id = item.id.toString();
 
     const titleElement = document.createElement("span");
-    titleElement.textContent = task.title;
+    titleElement.textContent = item.title;
 
     const descriptionElement = document.createElement("span");
-    descriptionElement.textContent = task.description;
+    descriptionElement.textContent = item.description;
 
     const deleteButton = document.createElement("button");
     deleteButton.textContent = "Delete";
-    deleteButton.setAttribute("onclick", `deleteTask(${task.id})`);
+    deleteButton.addEventListener("click", () => deleteTodoInStag1(item.id));
 
     taskElement.appendChild(titleElement);
     taskElement.appendChild(descriptionElement);
     taskElement.appendChild(deleteButton);
 
-    if (taskContainer) {
-      taskContainer.appendChild(taskElement);
-    }
+    taskContainer.appendChild(taskElement);
   });
 
   console.log(`Tasks added: ${tasksAdded}`);
-}
+};
 
 // Generates random tasks and displays them using the createTaskElements function.
-function generateRandomTasksStage1(): void {
-  const tasks: TodoItem[] = [];
-
+const generateRandomTasksStage1 = (): void => {
   for (let i = 0; i < Math.floor(Math.random() * 15); i++) {
     tasks.push({
       title: "Go to gym",
       description: "Go to gym at 5 PM",
-      id: i + 1,
+      id: tasks.length + 1, // Assign a unique ID.
     });
   }
 
   createTaskElements(tasks);
-}
+};
+
+// Delete a task by ID.
+const deleteTodoInStag1 = (id: number): void => {
+  const indexToDelete = tasks.findIndex((task) => task.id === id);
+
+  if (indexToDelete !== -1) {
+    tasks.splice(indexToDelete, 1);
+    createTaskElements(tasks);
+    console.log(`Deleted task with ID ${id}`);
+  }
+};
 
 document
   .getElementById("generateButtonStage1")

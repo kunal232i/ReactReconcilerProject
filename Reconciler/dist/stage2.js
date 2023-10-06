@@ -27,7 +27,7 @@ function createDomElements(data) {
             updated++;
             existingChild.children[0].innerHTML = item.title;
             existingChild.children[1].innerHTML = item.description;
-            childrenToRemove.push(existingChild); // Add it to the removal list
+            childrenToRemove.push(existingChild);
         }
         else {
             added++;
@@ -39,7 +39,7 @@ function createDomElements(data) {
             grandChildElement2.innerHTML = item.description;
             const grandChildElement3 = document.createElement("button");
             grandChildElement3.innerHTML = "Delete";
-            grandChildElement3.setAttribute("onclick", `deleteTodo(${item.id})`);
+            grandChildElement3.onclick = () => deleteTodoInStag2(item.id);
             childElement.appendChild(grandChildElement1);
             childElement.appendChild(grandChildElement2);
             childElement.appendChild(grandChildElement3);
@@ -71,3 +71,23 @@ function generateRandomTasksStage2() {
 (_a = document
     .getElementById("generateButtonStage2")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", generateRandomTasksStage2);
 generateRandomTasksStage2();
+function deleteTodoInStag2(id) {
+    const parentElement = document.getElementById("stage2");
+    if (!parentElement) {
+        console.error("Parent element not found.");
+        return;
+    }
+    const elementToDelete = parentElement.querySelector(`[data-id="${id}"]`);
+    if (elementToDelete) {
+        parentElement.removeChild(elementToDelete);
+        const logsContainer = document.getElementById("logsContainerStage2");
+        if (logsContainer) {
+            const deletedCountElement = logsContainer.querySelector('div:contains("Deleted:")');
+            if (deletedCountElement &&
+                deletedCountElement.textContent !== undefined) {
+                const currentDeletedCount = parseInt(deletedCountElement.textContent.split(":")[1]) || 0;
+                deletedCountElement.textContent = `Deleted: ${currentDeletedCount + 1}`;
+            }
+        }
+    }
+}
