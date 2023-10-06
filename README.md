@@ -19,6 +19,7 @@ Stage 2 involves calculating the differences between the previous DOM and the cu
 ### Stage 3 (Virtual DOM)
 
 ![Virtual DOM](Images/image-3.png)
+[source link](https://www.geeksforgeeks.org/what-is-diffing-algorithm/)
 
 To address the inefficiencies of the previous two stages, React introduces the concept of a Virtual DOM (VDOM). Instead of fetching the complete DOM, React maintains a copy of the original DOM in the Virtual DOM. For the current state, it refers to the VDOM instead of directly interacting with the original DOM. Only the differences between the VDOM and the original DOM are updated, which results in more efficient updates. The Virtual DOM is typically represented as a tree-like data structure.
 
