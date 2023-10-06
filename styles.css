@@ -1,0 +1,61 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.github-link {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.github-link:hover {
+  background-color: #555;
+}
+
+.horizontal-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.stage-container {
+  text-align: center;
+  margin: 10px;
+  background-color: #f9f9f9;
+}
+
+.stage {
+  border: 1px solid #ccc;
+  padding: 20px;
+}
+
+.stage h2 {
+  margin-top: 10px;
+}
+
+.stage-container button {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.generate-button {
+  background-color: #28a745 !important;
+}

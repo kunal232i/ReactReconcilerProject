@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="styles.css" />
+  </head>
+  <script id="dynamicScript" src="Reconciler/dist/script.js"></script>
+  <body>
+    <a
+      href="https://github.com/kunal232i/ReactReconcilerProject"
+      class="github-link"
+      >GitHub</a
+    >
+    <div class="horizontal-container">
+      <div class="stage-container">
+        <div class="stage" id="stage1">
+          <h2>DOM Refresh</h2>
+        </div>
+        <button class="stage-button" id="stage1Button">Start Stage 1</button>
+        <button class="generate-button" id="generateButtonStage1">
+          Generate Tasks
+        </button>
+      </div>
+
+      <div class="stage-container">
+        <div class="stage" id="stage2">
+          <h2>DOM Diff</h2>
+        </div>
+        <button class="stage-button" id="stage2Button">Start Stage 2</button>
+        <button class="generate-button" id="generateButtonStage2">
+          Generate Tasks
+        </button>
+      </div>
+
+      <div class="stage-container">
+        <div class="stage" id="stage3">
+          <h2>Virtual DOM</h2>
+        </div>
+        <button class="stage-button" id="stage3Button">Start Stage 3</button>
+        <button class="generate-button" id="generateButtonStage3">
+          Generate Tasks
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
