@@ -1,10 +1,20 @@
 const changeScriptSource = (stage: number): void => {
   console.log(`Changing script for Stage ${stage}`);
-
   const oldScript = document.getElementById("dynamicScript");
   if (oldScript) {
     oldScript.parentNode?.removeChild(oldScript);
   }
+
+  // Clear the contents of all stage divs except the one for the clicked stage
+  const stageContainers = document.querySelectorAll(".stage-container");
+  stageContainers.forEach((container, index) => {
+    const stageDiv = container.querySelector(".stage");
+    if (stageDiv) {
+      if (index + 1 !== stage) {
+        stageDiv.innerHTML = "";
+      }
+    }
+  });
 
   const newScript = document.createElement("script");
   newScript.id = "dynamicScript";
@@ -14,15 +24,10 @@ const changeScriptSource = (stage: number): void => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("stage1Button")?.addEventListener("click", () => {
-    changeScriptSource(1);
-  });
-
-  document.getElementById("stage2Button")?.addEventListener("click", () => {
-    changeScriptSource(2);
-  });
-
-  document.getElementById("stage3Button")?.addEventListener("click", () => {
-    changeScriptSource(3);
+  const stageButtons = document.querySelectorAll(".stage-button");
+  stageButtons.forEach((button, index) => {
+    button.addEventListener("click", () => {
+      changeScriptSource(index + 1);
+    });
   });
 });
