@@ -16,7 +16,8 @@ if (stage3Element) {
 
 function createDOMElements(
   existingDOM: TodoItem[],
-  currentDOM: TodoItem[]
+  currentDOM: TodoItem[],
+  startTime: number
 ): void {
   const parentElement: HTMLElement | null = document.getElementById("stage3");
 
@@ -80,10 +81,15 @@ function createDOMElements(
     }
   });
 
+  const endTime = performance.now();
+  const elapsedTime = (endTime - startTime) * 1000; // Convert to microseconds
+
+  // Display the total time within logsContainerStage3
   logsContainerStage3.innerHTML = `
     <div>Added: ${addedCount}</div>
     <div>Updated: ${updatedCount}</div>
     <div>Deleted: ${deletedCount}</div>
+    <div>Total time taken: ${elapsedTime.toFixed(2)} µs</div>
   `;
 }
 
@@ -94,10 +100,12 @@ function updateVirtualDOM(data: TodoItem[]): void {
     title: item.title,
     description: item.description,
   }));
-  createDOMElements(existingDOM, virtualDOM); // Pass the old and new virtualDOM to
+  createDOMElements(existingDOM, virtualDOM, performance.now()); // Pass the old and new virtualDOM and start time
 }
 
 function generateRandomTasksStage3(): void {
+  const startTime = performance.now();
+
   const todos: TodoItem[] = [];
   for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
     todos.push({

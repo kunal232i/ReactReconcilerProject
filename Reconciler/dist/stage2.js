@@ -7,7 +7,7 @@ const stage2Element = document.getElementById("stage2");
 if (stage2Element) {
     stage2Element.appendChild(logsContainerStage2);
 }
-function createDomElements(data) {
+function createDomElements(data, startTime) {
     const parentElement = document.getElementById("stage2");
     if (!parentElement) {
         console.error("Parent element not found.");
@@ -51,22 +51,26 @@ function createDomElements(data) {
         deleted++;
         parentElement.removeChild(child);
     });
+    const endTime = performance.now();
+    const elapsedTime = (endTime - startTime) * 1000; // Convert to microseconds
     logsContainerStage2.innerHTML = `
   <div>Added: ${added}</div>
   <div>Updated: ${updated}</div>
   <div>Deleted: ${deleted}</div>
+  <div>Total time taken: ${elapsedTime.toFixed(2)} µs</div>
   `;
 }
 function generateRandomTasksStage2() {
+    const startTime = performance.now();
     const todos = [];
-    for (let i = 0; i < Math.floor(Math.random() * 15); i++) {
+    for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
         todos.push({
             title: "Go to gym",
             description: "Go to gym from 5",
             id: i + 1,
         });
     }
-    createDomElements(todos);
+    createDomElements(todos, startTime);
 }
 (_a = document
     .getElementById("generateButtonStage2")) === null || _a === void 0 ? void 0 : _a.addEventListener("click", generateRandomTasksStage2);

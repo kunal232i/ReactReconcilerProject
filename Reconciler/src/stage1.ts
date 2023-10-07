@@ -7,7 +7,7 @@ interface TodoItem {
 const tasks: TodoItem[] = [];
 
 // Creates and displays DOM elements for tasks.
-const createTaskElements = (taskData: TodoItem[]): void => {
+const createTaskElements = (taskData: TodoItem[], startTime: number): void => {
   const taskContainer = document.getElementById("stage1");
 
   if (!taskContainer) {
@@ -42,12 +42,23 @@ const createTaskElements = (taskData: TodoItem[]): void => {
     taskContainer.appendChild(taskElement);
   });
 
+  const endTime = performance.now();
+  const elapsedTime = (endTime - startTime) * 1000; // Convert to microseconds
   console.log(`Tasks added: ${tasksAdded}`);
+
+  // Display the total time taken within the taskContainer in microseconds.
+  const totalTimeElement = document.createElement("div");
+  totalTimeElement.textContent = `Total time taken: ${elapsedTime.toFixed(
+    2
+  )} µs`;
+  taskContainer.appendChild(totalTimeElement);
 };
 
 // Generates random tasks and displays them using the createTaskElements function.
 const generateRandomTasksStage1 = (): void => {
-  for (let i = 0; i < Math.floor(Math.random() * 15); i++) {
+  const startTime = performance.now();
+
+  for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
     tasks.push({
       title: "Go to gym",
       description: "Go to gym at 5 PM",
@@ -55,7 +66,7 @@ const generateRandomTasksStage1 = (): void => {
     });
   }
 
-  createTaskElements(tasks);
+  createTaskElements(tasks, startTime);
 };
 
 // Delete a task by ID.
@@ -64,7 +75,7 @@ const deleteTodoInStag1 = (id: number): void => {
 
   if (indexToDelete !== -1) {
     tasks.splice(indexToDelete, 1);
-    createTaskElements(tasks);
+    createTaskElements(tasks, performance.now());
     console.log(`Deleted task with ID ${id}`);
   }
 };

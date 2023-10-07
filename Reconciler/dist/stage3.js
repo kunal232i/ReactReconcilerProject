@@ -7,7 +7,7 @@ const stage3Element = document.getElementById("stage3");
 if (stage3Element) {
     stage3Element.appendChild(logsContainerStage3);
 }
-function createDOMElements(existingDOM, currentDOM) {
+function createDOMElements(existingDOM, currentDOM, startTime) {
     const parentElement = document.getElementById("stage3");
     let addedCount = 0, deletedCount = 0, updatedCount = 0;
     // Compare the new virtual DOM to the old virtual DOM
@@ -50,10 +50,14 @@ function createDOMElements(existingDOM, currentDOM) {
             }
         }
     });
+    const endTime = performance.now();
+    const elapsedTime = (endTime - startTime) * 1000; // Convert to microseconds
+    // Display the total time within logsContainerStage3
     logsContainerStage3.innerHTML = `
     <div>Added: ${addedCount}</div>
     <div>Updated: ${updatedCount}</div>
     <div>Deleted: ${deletedCount}</div>
+    <div>Total time taken: ${elapsedTime.toFixed(2)} µs</div>
   `;
 }
 function updateVirtualDOM(data) {
@@ -63,9 +67,10 @@ function updateVirtualDOM(data) {
         title: item.title,
         description: item.description,
     }));
-    createDOMElements(existingDOM, virtualDOM); // Pass the old and new virtualDOM to
+    createDOMElements(existingDOM, virtualDOM, performance.now()); // Pass the old and new virtualDOM and start time
 }
 function generateRandomTasksStage3() {
+    const startTime = performance.now();
     const todos = [];
     for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
         todos.push({

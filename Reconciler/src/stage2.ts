@@ -12,7 +12,7 @@ if (stage2Element) {
   stage2Element.appendChild(logsContainerStage2);
 }
 
-function createDomElements(data: TodoItem[]): void {
+function createDomElements(data: TodoItem[], startTime: number): void {
   const parentElement = document.getElementById("stage2");
 
   if (!parentElement) {
@@ -68,16 +68,22 @@ function createDomElements(data: TodoItem[]): void {
     parentElement.removeChild(child);
   });
 
+  const endTime = performance.now();
+  const elapsedTime = (endTime - startTime) * 1000; // Convert to microseconds
+
   logsContainerStage2.innerHTML = `
   <div>Added: ${added}</div>
   <div>Updated: ${updated}</div>
   <div>Deleted: ${deleted}</div>
+  <div>Total time taken: ${elapsedTime.toFixed(2)} µs</div>
   `;
 }
 
 function generateRandomTasksStage2(): void {
+  const startTime = performance.now();
+
   const todos: TodoItem[] = [];
-  for (let i = 0; i < Math.floor(Math.random() * 15); i++) {
+  for (let i = 0; i < Math.floor(Math.random() * 10); i++) {
     todos.push({
       title: "Go to gym",
       description: "Go to gym from 5",
@@ -85,7 +91,7 @@ function generateRandomTasksStage2(): void {
     });
   }
 
-  createDomElements(todos);
+  createDomElements(todos, startTime);
 }
 
 document
